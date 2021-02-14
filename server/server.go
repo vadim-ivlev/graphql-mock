@@ -8,9 +8,6 @@ import (
 
 	"github.com/gin-gonic/gin"
 	graphql "github.com/graph-gophers/graphql-go"
-	"github.com/graph-gophers/graphql-go/relay"
-
-	"github.com/99designs/gqlgen/graphql/playground"
 )
 
 var fakeDatabase = map[string]string{}
@@ -54,21 +51,6 @@ func (r *root) SetMessage(args struct{ Key, Message string }) *string {
 // Construct a schema, using GraphQL schema language
 var schemaBytes, _ = ioutil.ReadFile("server.graphql")
 var schema = graphql.MustParseSchema(string(schemaBytes), &root{}, graphql.UseStringDescriptions())
-
-// GIN handlers
-func gophersGraphQLHandler() gin.HandlerFunc {
-	r := &relay.Handler{Schema: schema}
-	return func(c *gin.Context) {
-		r.ServeHTTP(c.Writer, c.Request)
-	}
-}
-
-func playgroundHandler() gin.HandlerFunc {
-	h := playground.Handler("GraphQL playground", "/graphql")
-	return func(c *gin.Context) {
-		h.ServeHTTP(c.Writer, c.Request)
-	}
-}
 
 func main() {
 	fmt.Println("Running a GraphQL API server at http://localhost:4000/graphql")

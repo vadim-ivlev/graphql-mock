@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"graphql-mock/stuff"
 	"io/ioutil"
 	"math/rand"
 
@@ -46,7 +47,7 @@ var schemaBytes, _ = ioutil.ReadFile("server2.graphql")
 var schema = graphql.MustParseSchema(string(schemaBytes), &root{}, graphql.UseStringDescriptions())
 
 // GIN handler
-func ginGraphQLHandler() gin.HandlerFunc {
+func gopherGraphQLHandler() gin.HandlerFunc {
 	r := &relay.Handler{Schema: schema}
 	return func(c *gin.Context) {
 		r.ServeHTTP(c.Writer, c.Request)
@@ -54,8 +55,15 @@ func ginGraphQLHandler() gin.HandlerFunc {
 }
 
 func main() {
-	r := gin.New()
-	r.POST("/graphql", ginGraphQLHandler())
-	fmt.Println("Running a GraphQL API server at http://localhost:4000/graphql")
+	// r := gin.New()
+	r := gin.Default()
+	r.POST("/graphql", gopherGraphQLHandler())
+	r.GET("/", stuff.PlaygroundHandler("GraphQL playground", "/graphql"))
+
+	fmt.Println(`
+	Running a GraphQL playground http://localhost:4000/
+	GraphQL end point            http://localhost:4000/graphql
+	`)
+
 	r.Run(":4000")
 }
