@@ -1,0 +1,8 @@
+type Query {
+    """Get message by the given key"""
+    getMessage(key: String!): String
+}
+type Mutation {
+    """Save a key and its message in database"""
+    setMessage(key: String!, message: String!): String
+}

@@ -1,0 +1,19 @@
+"""GraphQL type. Represents a die."""
+type RandomDie {
+    """Number of sides"""
+    numSides: Int!
+    """Roll the die once"""
+    rollOnce: Int!
+    """Roll the die several times"""
+    roll(numRolls: Int!): [Int!]!
+}
+type Query {
+    """Create a die with given number of sides"""
+    getDie(numSides: Int!): RandomDie
+    """Get message by the given key"""
+    getMessage(key: String!): String
+}
+type Mutation {
+    """Save a key and its message in database"""
+    setMessage(key: String!, message: String!): String
+}

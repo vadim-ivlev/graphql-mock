@@ -1,0 +1,18 @@
+{
+    "version": 1,
+    "type": "window",
+    "query": "\n\n\n# query{\n#   getMessage\n# }\n\n\n# mutation{\n#   setMessage(message: \"Вадим\")\n# }\n\n\nmutation m{\n  setMessage(message: \"ddd\")\n}\n\n\nquery q{\n  getMessage\n}\n\nquery q1{\n  getDie(numSides: 6){\n    numSides\n    rollOnce\n    roll(numRolls: 8)\n  }\n}\n",
+    "apiUrl": "http://localhost:4001/graphql",
+    "variables": "{}",
+    "subscriptionUrl": "",
+    "headers": [
+        {
+            "key": "",
+            "value": "",
+            "enabled": true
+        }
+    ],
+    "windowName": "go server",
+    "preRequestScript": "",
+    "preRequestScriptEnabled": false
+}

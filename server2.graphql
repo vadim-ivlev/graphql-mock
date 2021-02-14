@@ -1,0 +1,13 @@
+"""Represents a die"""
+type RandomDie {
+    """Number of sides"""
+    numSides: Int!
+    """Roll the die once"""
+    rollOnce: Int!
+    """Roll the die several times"""
+    roll(numRolls: Int!): [Int!]!
+}
+type Query {
+    """Create a die with given number of sides"""
+    getDie(numSides: Int!): RandomDie
+}
